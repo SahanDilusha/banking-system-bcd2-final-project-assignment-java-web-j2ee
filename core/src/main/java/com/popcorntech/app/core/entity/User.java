@@ -26,6 +26,7 @@ public class User {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_type", nullable = false)
     private UserTypes userType = UserTypes.USER;
 
     public User() {

@@ -28,6 +28,10 @@
             <groupId>com.popcorntech.app</groupId>
             <artifactId>core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

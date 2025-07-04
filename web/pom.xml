@@ -25,7 +25,10 @@
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-web-api</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.popcorntech.app</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
