@@ -12,6 +12,7 @@
         <module>web</module>
         <module>ear</module>
         <module>core</module>
+        <module>user</module>
     </modules>
 
     <properties>
@@ -22,6 +23,17 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--_____________________________________ My dependencies ________________________________________________________________-->
+
+            <dependency>
+                <groupId>com.popcorntech.app</groupId>
+                <artifactId>core</artifactId>
+                <version>1.0</version>
+                <type>jar</type>
+            </dependency>
+
+            <!--_____________________________________ My dependencies _________________________________________________________________-->
+
             <dependency>
                 <groupId>jakarta.platform</groupId>
                 <artifactId>jakarta.jakartaee-api</artifactId>
