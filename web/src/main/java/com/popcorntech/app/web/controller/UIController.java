@@ -21,11 +21,8 @@ public class UIController {
     @GET
     public Viewable index() {
 
-
-
-
+        return getViewable("index");
     }
-
 
     @GET
     @Path("/admin/{path}")

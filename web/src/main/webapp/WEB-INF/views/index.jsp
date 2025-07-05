@@ -24,23 +24,20 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="login-card">
                     <div class="text-center">
-                        <img src="${pageContext.request.contextPath}/resources/images/app/bank-logo.png" alt="Bank Logo"
+                        <img src="${pageContext.request.contextPath}/resources/image/app/bank-logo.png" alt="Bank Logo"
                              class="bank-logo">
                         <h2 class="login-title">Welcome Back</h2>
                     </div>
 
-                    <form >
+                    <form>
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
+                            <label for="email" class="form-label">Username</label>
 
-                            <span class="input-group-text">
-                                        <i class="bi bi-person"></i>
-                                    </span>
-                            <input type="text"
+                            <input type="email"
                                    class="form-control"
-                                   id="username"
-                                   name="username"
-                                   placeholder="Enter your username"
+                                   id="email"
+                                   name="email"
+                                   placeholder="Enter your email"
                                    required>
                         </div>
 
@@ -60,7 +57,7 @@
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100 btn-login mb-3">
+                        <button type="button" class="btn btn-primary w-100 btn-login mb-3">
                             Login
                         </button>
 
