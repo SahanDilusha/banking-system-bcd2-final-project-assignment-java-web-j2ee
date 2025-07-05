@@ -1,5 +1,5 @@
 package com.popcorntech.app.core.entity;
 
-public enum UserTypes {
-    ADMIN, USER, MANAGER
+public enum UserStatus {
+    ACTIVE, NOT_VERIFIED, INACTIVE, DELETED, DEACTIVATED
 }

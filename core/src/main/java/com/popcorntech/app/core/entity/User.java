@@ -2,6 +2,9 @@ package com.popcorntech.app.core.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @NamedQueries({
@@ -29,8 +32,13 @@ public class User {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_type", nullable = false)
-    private UserTypes userType = UserTypes.USER;
+    @Column(name = "user_status", nullable = false)
+    private UserStatus userStatus = UserStatus.NOT_VERIFIED;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "role")
+    private Set<String> roles = new HashSet<String>();
 
     public User() {
     }
@@ -89,12 +97,21 @@ public class User {
         return this;
     }
 
-    public UserTypes getUserType() {
-        return userType;
+    public UserStatus getUserStatus() {
+        return userStatus;
     }
 
-    public User setUserType(UserTypes userType) {
-        this.userType = userType;
+    public User setUserStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
+        return this;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public User setRoles(Set<String> roles) {
+        this.roles = roles;
         return this;
     }
 }
