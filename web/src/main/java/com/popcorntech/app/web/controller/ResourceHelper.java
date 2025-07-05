@@ -34,7 +34,10 @@ public class ResourceHelper {
 
             inputStream.close();
 
-            return Response.ok(bytes).header("Content-Type", type).build();
+            return Response.ok(bytes)
+                    .header("Content-Type", type)
+                    .header("Content-Length", bytes.length)
+                    .build();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,5 +58,13 @@ public class ResourceHelper {
     public Response getCss(@PathParam("file") String file) {
         return getResponse("css/" + file, "text/css");
     }
+
+    @GET
+    @Path("/js/{file}")
+    @Produces("application/javascript")
+    public Response getJs(@PathParam("file") String file) {
+        return getResponse("js/" + file, "application/javascript");
+    }
+
 
 }

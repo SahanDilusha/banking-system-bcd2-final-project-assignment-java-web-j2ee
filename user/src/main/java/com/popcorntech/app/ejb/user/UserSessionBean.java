@@ -4,6 +4,7 @@ import com.popcorntech.app.core.entity.User;
 import com.popcorntech.app.core.service.UserService;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
 import java.util.Optional;
@@ -15,11 +16,27 @@ public class UserSessionBean implements UserService {
     private EntityManager em;
 
     @Override
-    public Optional<User> getUser(Long id) {
-        System.out.println("getUser Ok... Id -" + id);
+    public Optional<User> findUserById(Long id) {
+
         try {
-            return Optional.of(em.find(User.class, id));
+            return Optional.ofNullable(em.find(User.class, id));
+        } catch (NoResultException e) {
+            return Optional.empty();
         } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<User> findUserByEmail(String email) {
+        try {
+            return Optional.ofNullable(em.createNamedQuery("User.findByEmail", User.class).setParameter("email", email).
+                    getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        } catch (Exception e) {
+            e.printStackTrace();
             return Optional.empty();
         }
     }
