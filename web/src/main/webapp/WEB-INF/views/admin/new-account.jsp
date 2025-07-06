@@ -33,7 +33,7 @@
                         <div class="card-header bg-primary bg-gradient">
                             <h5 class="card-title text-white mb-0">Create New Account</h5>
                         </div>
-                        <form>
+                        <form class="p-3">
                             <!-- Personal Information -->
                             <div class="row mb-4">
                                 <div class="col-12">
@@ -167,7 +167,6 @@
         </div>
     </div>
 </div>
-
 
 </div>
 
