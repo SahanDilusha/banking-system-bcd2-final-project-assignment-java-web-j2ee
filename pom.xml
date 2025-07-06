@@ -67,6 +67,12 @@
                 <version>3.0.0</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.mindrot</groupId>
+                <artifactId>jbcrypt</artifactId>
+                <version>0.4</version>
+            </dependency>
+
             <!--___________________________________________ jersey _______________________________________-->
             <dependency>
                 <groupId>org.glassfish.jersey.containers</groupId>
