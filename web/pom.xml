@@ -24,10 +24,15 @@
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-web-api</artifactId>
         </dependency>
+
+        <!--_____________________________________________My  dependencies_______________________________________-->
+
         <dependency>
             <groupId>com.popcorntech.app</groupId>
             <artifactId>core</artifactId>
         </dependency>
+
+        <!--_____________________________________________My  dependencies_______________________________________-->
 
         <!--___________________________________________ jersey _______________________________________-->
 

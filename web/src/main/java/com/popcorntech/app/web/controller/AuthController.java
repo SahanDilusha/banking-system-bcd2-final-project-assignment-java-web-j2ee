@@ -2,6 +2,10 @@ package com.popcorntech.app.web.controller;
 
 import com.popcorntech.app.core.dto.LoginRequestDTO;
 import com.popcorntech.app.core.dto.ResponseDTO;
+import com.popcorntech.app.core.dto.UserRegisterRequestDTO;
+import com.popcorntech.app.core.service.UserService;
+import jakarta.annotation.security.PermitAll;
+import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationStatus;
 import jakarta.security.enterprise.SecurityContext;
@@ -23,11 +27,37 @@ public class AuthController {
     @Inject
     private SecurityContext securityContext;
 
+    @EJB
+    private UserService userService;
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
+    public Response registerUser(UserRegisterRequestDTO registerRequestDTO) {
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        try {
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseDTO.setMessage("Register failed!");
+            return Response.status(Response.Status.OK).entity(responseDTO).build();
+        }
+        return null;
+    }
+
+
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
     public Response login(@Context HttpServletRequest request, @Context HttpServletResponse response, LoginRequestDTO loginRequest) {
+
+        System.out.println("login api call");
 
         ResponseDTO responseDTO = new ResponseDTO();
 

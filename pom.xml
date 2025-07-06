@@ -13,6 +13,7 @@
         <module>ear</module>
         <module>core</module>
         <module>user</module>
+        <module>bank_account</module>
     </modules>
 
     <properties>

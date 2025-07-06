@@ -40,6 +40,13 @@
             <type>ejb</type>
         </dependency>
 
+        <dependency>
+            <groupId>com.popcorntech.app</groupId>
+            <artifactId>bank_account</artifactId>
+            <version>1.0</version>
+            <type>ejb</type>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -60,6 +67,12 @@
                             <groupId>com.popcorntech.app</groupId>
                             <artifactId>user</artifactId>
                             <bundleFileName>user-module.jar</bundleFileName>
+                        </ejbModule>
+
+                        <ejbModule>
+                            <groupId>com.popcorntech.app</groupId>
+                            <artifactId>bank_account</artifactId>
+                            <bundleFileName>bank-account-module.jar</bundleFileName>
                         </ejbModule>
 
                         <webModule>

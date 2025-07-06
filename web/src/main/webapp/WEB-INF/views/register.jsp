@@ -11,11 +11,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank System Login</title>
+    <title>Bank System Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="ctx" content="${pageContext.request.contextPath}">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login_page_style.css"/>
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/image/app/bank-logo.png"/>
+
 </head>
 <body>
 <div class="login-container d-flex align-items-center justify-content-center">
@@ -26,58 +28,39 @@
                     <div class="text-center">
                         <img src="${pageContext.request.contextPath}/resources/image/app/bank-logo.png" alt="Bank Logo"
                              class="bank-logo">
-                        <h2 class="login-title">Welcome Back</h2>
+                        <h2 class="login-title">Bank System Register</h2>
                     </div>
 
-                    <form id="login-form">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                    <form id=register-form">
 
-                            <input type="email"
+                        <div class="mb-3">
+                            <label for="account-number" class="form-label">Account Number</label>
+
+                            <input type="number"
                                    class="form-control"
-                                   id="email"
-                                   name="email"
-                                   placeholder="Enter your email"
+                                   id="account-number"
+                                   name="account-number"
+                                   placeholder="Enter your account number"
                                    required>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
 
-                            <input type="password"
-                                   class="form-control"
-                                   id="password"
-                                   name="password"
-                                   placeholder="Enter your password"
-                                   required>
-                        </div>
-
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">Remember me</label>
-                        </div>
-
-                        <button type="button" class="btn btn-primary w-100 btn-login mb-3" id="login-btn">
-                            Login
+                        <button type="button" class="btn btn-primary w-100 btn-login mb-3" id="register-btn">
+                            Register
                         </button>
 
-                        <div class="mb-3 text-center">
-                            <p class="mb-0">Don't have an account?
-                                <a href="${pageContext.request.contextPath}/register" class="text-primary">Register</a>
+                        <div class="mt-4 text-center">
+                            <p class="mb-0">Do you have an account?
+                                <a href="${pageContext.request.contextPath}/" class="text-primary">Login</a>
                             </p>
                         </div>
 
-                        <div class="text-center">
-                            <a href="${pageContext.request.contextPath}/forgot-password" class="forgot-password">Forgot
-                                Password?</a>
-                        </div>
                     </form>
 
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- Modal -->
     <div class="modal fade" id="model" tabindex="-1" aria-labelledby="model-title" aria-hidden="true">

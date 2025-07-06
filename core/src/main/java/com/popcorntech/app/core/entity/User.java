@@ -10,6 +10,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
 })
+
 public class User {
 
     @Id
@@ -19,7 +20,7 @@ public class User {
     @Column(name = "email", length = 100, unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password", length = 60, nullable = false)
+    @Column(name = "password", length = 60)
     private String password;
 
     @Column(name = "otp", length = 6, nullable = false)
@@ -31,16 +32,92 @@ public class User {
     @Column(name = "last_name", length = 45, nullable = false)
     private String lastName;
 
+    @Column(name = "mobile", length = 10, nullable = false)
+    private String mobile;
+
+    @Column(name = "street", length = 10, nullable = false)
+    private String street;
+
+    @Column(name = "city", length = 10, nullable = false)
+    private String city;
+
+    @Column(name = "state", length = 10, nullable = false)
+    private String state;
+
+    @Column(name = "zip_code", length = 20, nullable = false)
+    private String zipCode;
+
+    @Column(name = "id_no", length = 20, nullable = false)
+    private String idNO;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status", nullable = false)
     private UserStatus userStatus = UserStatus.NOT_VERIFIED;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "id_type", nullable = false)
+    private IDType idType = IDType.NATIONAL_ID;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "role")
+    @Column(name = "role",nullable = false)
     private Set<String> roles = new HashSet<String>();
 
     public User() {
+    }
+
+    public IDType getIdType() {
+        return idType;
+    }
+
+    public User setIdType(IDType idType) {
+        this.idType = idType;
+        return this;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public User setMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public User setStreet(String street) {
+        this.street = street;
+        return this;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public User setCity(String city) {
+        this.city = city;
+        return this;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public User setState(String state) {
+        this.state = state;
+        return this;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public User setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+        return this;
     }
 
     public Long getId() {

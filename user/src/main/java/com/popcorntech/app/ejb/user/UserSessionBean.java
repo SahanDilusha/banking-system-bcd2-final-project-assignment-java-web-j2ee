@@ -40,4 +40,36 @@ public class UserSessionBean implements UserService {
             return Optional.empty();
         }
     }
+
+    @Override
+    public boolean existsUserByEmail(String email) {
+        try {
+            return em.createNamedQuery("User.findByEmail", User.class).setParameter("email", email).getSingleResult() != null;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public Optional<User> addUser(User user) {
+        try {
+            em.persist(user);
+            return Optional.of(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<User> updateUser(User user) {
+        try {
+            em.merge(user);
+            return Optional.of(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
 }

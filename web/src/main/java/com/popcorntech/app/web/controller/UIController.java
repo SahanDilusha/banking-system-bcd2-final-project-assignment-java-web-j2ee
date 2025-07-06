@@ -20,14 +20,27 @@ public class UIController {
 
     @GET
     public Viewable index() {
-
+        System.out.println("index method ui");
         return getViewable("index");
+    }
+
+
+    @GET
+    @Path("/admin")
+    public Viewable adminIndex() {
+        return getViewable("admin/index");
     }
 
     @GET
     @Path("/admin/{path}")
-    public Viewable admin(@PathParam("path") String path) {
-        return getViewable(path);
+    public Viewable adminPages(@PathParam("path") String path) {
+        return getViewable("admin/" + path);
+    }
+
+    @GET
+    @Path("/register")
+    public Viewable register() {
+        return getViewable("register");
     }
 
     @DenyAll
