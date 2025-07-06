@@ -11,6 +11,6 @@ public interface UserService {
     boolean existsUserByEmail(String email);
     Optional<User> addUser(User user);
     Optional<User> updateUser(User user);
-
+    boolean existsUserByMobile(String mobileNumber);
 
 }

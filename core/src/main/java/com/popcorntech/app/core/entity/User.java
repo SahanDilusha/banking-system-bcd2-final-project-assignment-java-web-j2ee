@@ -8,7 +8,9 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-        @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+        @NamedQuery(name = "User.findByMobile", query = "SELECT u FROM User u WHERE u.mobile = :mobile")
+
 })
 
 public class User {
@@ -35,13 +37,13 @@ public class User {
     @Column(name = "mobile", length = 10, nullable = false)
     private String mobile;
 
-    @Column(name = "street", length = 10, nullable = false)
+    @Column(name = "street", length = 45, nullable = false)
     private String street;
 
-    @Column(name = "city", length = 10, nullable = false)
+    @Column(name = "city", length = 45, nullable = false)
     private String city;
 
-    @Column(name = "state", length = 10, nullable = false)
+    @Column(name = "state", length = 45, nullable = false)
     private String state;
 
     @Column(name = "zip_code", length = 20, nullable = false)

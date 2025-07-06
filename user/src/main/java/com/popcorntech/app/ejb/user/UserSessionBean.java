@@ -72,4 +72,14 @@ public class UserSessionBean implements UserService {
             return Optional.empty();
         }
     }
+
+    @Override
+    public boolean existsUserByMobile(String mobileNumber) {
+        try {
+            return em.createNamedQuery("User.findByMobile", User.class).setParameter("mobile", mobileNumber).getSingleResult() != null;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
