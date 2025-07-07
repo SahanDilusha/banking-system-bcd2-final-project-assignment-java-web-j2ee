@@ -3,11 +3,8 @@ package com.popcorntech.app.web.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.popcorntech.app.core.dto.CreatBankAccountRequestDTO;
 import com.popcorntech.app.core.dto.ResponseDTO;
-import com.popcorntech.app.core.entity.AccountType;
-import com.popcorntech.app.core.entity.IDType;
-import com.popcorntech.app.core.service.BankAccountService;
-import com.popcorntech.app.core.service.UserService;
-import com.popcorntech.app.web.model.ValidationUtil;
+import com.popcorntech.app.core.service.*;
+import com.popcorntech.app.core.util.ValidationUtil;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -24,6 +21,16 @@ public class AccountController {
     private BankAccountService bankAccountService;
     @EJB
     private UserService userService;
+    @EJB
+    private AccountTypeService accountTypeService;
+    @EJB
+    private IDTypeService idTypeService;
+    @EJB
+    private UserStatusService userStatusService;
+    @EJB
+    private RolesService rolesService;
+    @EJB
+    private AccountStatusService accountStatusService;
 
     @POST
     @Path("/create")
@@ -83,11 +90,11 @@ public class AccountController {
                     responseDTO.setMessage("Invalid zip code");
                 } else if (dto.getZipCode().length() > 20) {
                     responseDTO.setMessage("Invalid zip code");
-                } else if (dto.getAccountType() == null || dto.getAccountType().isEmpty()) {
+                } else if (dto.getAccountType() == null || dto.getAccountType().isEmpty() || !idTypeService.existsIDType(dto.getAccountType())) {
                     responseDTO.setMessage("Invalid account type");
                 } else if (dto.getDeposit() == null || dto.getDeposit() < 0) {
                     responseDTO.setMessage("Invalid deposit");
-                } else if (dto.getIdType() == null || dto.getIdType().isEmpty()) {
+                } else if (dto.getIdType() == null || dto.getIdType().isEmpty() || !idTypeService.existsIDType(dto.getIdType())) {
                     responseDTO.setMessage("Invalid id type");
                 } else if (dto.getIdNO() == null || dto.getIdNO().isEmpty()) {
                     responseDTO.setMessage("Invalid ID Number");
@@ -95,58 +102,12 @@ public class AccountController {
                     responseDTO.setMessage("Invalid ID Number");
                 } else {
 
-                    AccountType accountType = null;
-                    IDType idType = null;
-
-                    switch (dto.getAccountType()) {
-                        case "SAVING_ACCOUNT":
-                            accountType = AccountType.SAVING_ACCOUNT;
-                            break;
-                        case "CHECKING_ACCOUNT":
-                            accountType = AccountType.CHECKING_ACCOUNT;
-                            break;
-                        case "BUSINESS_ACCOUNT":
-                            accountType = AccountType.BUSINESS_ACCOUNT;
-                            break;
-                        default:
-                    }
-
-                    if (accountType == null) {
-                        responseDTO.setMessage("Invalid account type");
-                    } else {
-
-                        switch (dto.getIdType()) {
-                            case "PASSPORT":
-                                idType = IDType.PASSPORT;
-                                break;
-                            case "DRIVER_LICENSE":
-                                idType = IDType.DRIVER_LICENSE;
-                                break;
-                            case "NATIONAL_ID":
-                                idType = IDType.NATIONAL_ID;
-                                break;
-                            default:
-                                break;
-                        }
-
-                        if (idType == null) {
-                            responseDTO.setMessage("Invalid ID Type");
-                        }else {
-                            if (userService.existsUserByEmail(dto.getEmail())) {
-                                responseDTO.setMessage("Email already exists");
-                            } else if (userService.existsUserByMobile(dto.getMobile())) {
-                                responseDTO.setMessage("Mobile already exists");
-                            }
-                        }
-
-                    }
 
                 }
 
 
             }
-
-
+            
             return Response.ok(responseDTO).entity(responseDTO).build();
 
         } catch (Exception e) {

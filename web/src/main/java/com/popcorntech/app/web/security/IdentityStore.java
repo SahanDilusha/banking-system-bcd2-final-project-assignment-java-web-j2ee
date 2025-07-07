@@ -2,7 +2,7 @@ package com.popcorntech.app.web.security;
 
 import com.popcorntech.app.core.entity.User;
 import com.popcorntech.app.core.service.UserService;
-import com.popcorntech.app.web.model.ValidationUtil;
+import com.popcorntech.app.core.util.ValidationUtil;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.security.enterprise.credential.Credential;

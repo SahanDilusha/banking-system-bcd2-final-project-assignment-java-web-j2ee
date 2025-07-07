@@ -71,8 +71,6 @@
             <artifactId>commons-io</artifactId>
         </dependency>
 
-
-
         <!--___________________________________________ jersey _______________________________________-->
 
     </dependencies>

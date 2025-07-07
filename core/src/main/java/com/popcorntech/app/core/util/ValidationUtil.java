@@ -1,4 +1,4 @@
-package com.popcorntech.app.web.model;
+package com.popcorntech.app.core.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 
