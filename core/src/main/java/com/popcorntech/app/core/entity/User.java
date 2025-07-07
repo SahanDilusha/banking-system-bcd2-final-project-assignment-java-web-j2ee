@@ -10,7 +10,6 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
         @NamedQuery(name = "User.findByMobile", query = "SELECT u FROM User u WHERE u.mobile = :mobile")
-
 })
 
 public class User {
@@ -62,10 +61,19 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "role",nullable = false)
+    @Column(name = "role", nullable = false)
     private Set<String> roles = new HashSet<String>();
 
     public User() {
+    }
+
+    public String getIdNO() {
+        return idNO;
+    }
+
+    public User setIdNO(String idNO) {
+        this.idNO = idNO;
+        return this;
     }
 
     public IDType getIdType() {
@@ -193,4 +201,10 @@ public class User {
         this.roles = roles;
         return this;
     }
+
+    public User addRoles(String roles) {
+        this.roles.add(roles);
+        return this;
+    }
+
 }

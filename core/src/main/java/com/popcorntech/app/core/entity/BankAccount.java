@@ -31,11 +31,31 @@ public class BankAccount {
         return user;
     }
 
-    public void setUser(User user) {
+    public BankAccount setUser(User user) {
         this.user = user;
+        return this;
     }
 
     public BankAccount() {
+    }
+
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public BankAccount setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+        return this;
+    }
+
+    public AccountStatus getStatus() {
+        return status;
+    }
+
+    public BankAccount setStatus(AccountStatus status) {
+        this.status = status;
+        return this;
     }
 
     public BankAccount(Long accountNumber, Double balance, AccountStatus status, User user) {

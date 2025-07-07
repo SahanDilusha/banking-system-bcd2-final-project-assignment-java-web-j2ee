@@ -2,9 +2,11 @@ package com.popcorntech.app.ejb.account;
 
 import com.popcorntech.app.core.entity.AccountType;
 import com.popcorntech.app.core.service.AccountTypeService;
+import jakarta.ejb.Stateless;
 
 import java.util.Optional;
 
+@Stateless
 public class AccountTypeSessionBean implements AccountTypeService {
     @Override
     public Optional<AccountType> findByName(String name) {

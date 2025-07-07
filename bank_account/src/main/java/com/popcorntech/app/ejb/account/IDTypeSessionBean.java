@@ -2,9 +2,11 @@ package com.popcorntech.app.ejb.account;
 
 import com.popcorntech.app.core.entity.IDType;
 import com.popcorntech.app.core.service.IDTypeService;
+import jakarta.ejb.Stateless;
 
 import java.util.Optional;
 
+@Stateless
 public class IDTypeSessionBean implements IDTypeService {
 
     @Override

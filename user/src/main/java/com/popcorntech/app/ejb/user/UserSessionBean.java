@@ -46,7 +46,6 @@ public class UserSessionBean implements UserService {
         try {
             return em.createNamedQuery("User.findByEmail", User.class).setParameter("email", email).getSingleResult() != null;
         } catch (NoResultException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -55,6 +54,7 @@ public class UserSessionBean implements UserService {
     public Optional<User> addUser(User user) {
         try {
             em.persist(user);
+            em.flush();
             return Optional.of(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +78,6 @@ public class UserSessionBean implements UserService {
         try {
             return em.createNamedQuery("User.findByMobile", User.class).setParameter("mobile", mobileNumber).getSingleResult() != null;
         } catch (NoResultException e) {
-            e.printStackTrace();
             return false;
         }
     }
