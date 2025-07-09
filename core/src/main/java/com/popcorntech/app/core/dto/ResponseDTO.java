@@ -1,5 +1,7 @@
 package com.popcorntech.app.core.dto;
 
+import com.popcorntech.app.core.entity.NotificationType;
+
 import java.io.Serializable;
 
 public class ResponseDTO implements Serializable {
@@ -7,6 +9,8 @@ public class ResponseDTO implements Serializable {
     private String message;
 
     private boolean status;
+
+    private NotificationType type = NotificationType.INFORMATION;
 
     public ResponseDTO() {
     }
@@ -31,6 +35,15 @@ public class ResponseDTO implements Serializable {
 
     public ResponseDTO setStatus(boolean status) {
         this.status = status;
+        return this;
+    }
+
+    public NotificationType getType() {
+        return type;
+    }
+
+    public ResponseDTO setType(NotificationType type) {
+        this.type = type;
         return this;
     }
 }
