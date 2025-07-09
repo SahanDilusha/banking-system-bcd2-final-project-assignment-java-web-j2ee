@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - New Account</title>
+
     <meta name="ctx" content="${pageContext.request.contextPath}">
+
     <link rel="icon" href="${pageContext.request.contextPath}/resources/image/app/bank-logo.png"/>
 
     <!-- CSS -->
@@ -43,19 +45,19 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">First Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter first name">
+                                    <input type="text" class="form-control" placeholder="Enter first name" id="firstName">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter last name">
+                                    <input type="text" class="form-control" placeholder="Enter last name" id="lastName">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="Enter email">
+                                    <input type="email" class="form-control" placeholder="Enter email" id="email">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" placeholder="Enter phone number">
+                                    <input type="tel" class="form-control" placeholder="Enter phone number" id="mobile">
                                 </div>
                             </div>
 
@@ -68,19 +70,19 @@
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label class="form-label">Street Address</label>
-                                    <input type="text" class="form-control" placeholder="Enter street address">
+                                    <input type="text" class="form-control" placeholder="Enter street address" id="street">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">City</label>
-                                    <input type="text" class="form-control" placeholder="Enter city">
+                                    <input type="text" class="form-control" placeholder="Enter city" id="city">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">State</label>
-                                    <input type="text" class="form-control" placeholder="Enter state">
+                                    <input type="text" class="form-control" placeholder="Enter state" id="state">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">ZIP Code</label>
-                                    <input type="text" class="form-control" placeholder="Enter ZIP code">
+                                    <input type="text" class="form-control" placeholder="Enter ZIP code" id="zipCode">
                                 </div>
                             </div>
 
@@ -93,18 +95,18 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Account Type</label>
-                                    <select class="form-select">
-                                        <option selected disabled>Select Account Type</option>
-                                        <option>Savings Account</option>
-                                        <option>Checking Account</option>
-                                        <option>Business Account</option>
+                                    <select class="form-select" id="accountType">
+                                        <option selected disabled value="0">Select Account Type</option>
+                                        <option value="SAVING_ACCOUNT">Savings Account</option>
+                                        <option value="CHECKING_ACCOUNT">Checking Account</option>
+                                        <option value="BUSINESS_ACCOUNT">Business Account</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Initial Deposit</label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input type="number" class="form-control" placeholder="Enter amount">
+                                        <input type="number" class="form-control" placeholder="Enter amount" id="deposit">
                                     </div>
                                 </div>
                             </div>
@@ -118,25 +120,25 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">ID Type</label>
-                                    <select class="form-select">
-                                        <option selected disabled>Select ID Type</option>
-                                        <option>Passport</option>
-                                        <option>Driver's License</option>
-                                        <option>National ID</option>
+                                    <select class="form-select" id="idType">
+                                        <option selected disabled value="0">Select ID Type</option>
+                                        <option value="PASSPORT">Passport</option>
+                                        <option value="DRIVER_LICENSE">Driver's License</option>
+                                        <option value="NATIONAL_ID">National ID</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">ID Number</label>
-                                    <input type="text" class="form-control" placeholder="Enter ID number">
+                                    <input type="text" class="form-control" placeholder="Enter ID number" id="idNO">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Upload ID Document</label>
-                                    <input type="file" class="form-control">
+                                    <input type="file" class="form-control" id="idDocument">
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <button type="button" class="btn btn-primary me-2">
+                                <button type="button" class="btn btn-primary me-2" id="createBtn">
                                     <i class="bi bi-check-circle"></i> Create Account
                                 </button>
                                 <button type="reset" class="btn btn-secondary">
