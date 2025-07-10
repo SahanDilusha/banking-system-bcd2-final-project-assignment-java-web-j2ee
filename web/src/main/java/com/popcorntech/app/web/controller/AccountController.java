@@ -35,6 +35,8 @@ public class AccountController {
     private RolesService rolesService;
     @EJB
     private AccountStatusService accountStatusService;
+    @EJB
+    private NotificationService notificationService;
 
     @POST
     @Path("/create")
@@ -72,7 +74,7 @@ public class AccountController {
                     responseDTO.setMessage("Invalid email");
                 } else if (userService.existsUserByEmail(dto.getEmail())) {
                     responseDTO.setMessage("Email already exists");
-                }  else if (dto.getMobile() == null || dto.getMobile().isEmpty()) {
+                } else if (dto.getMobile() == null || dto.getMobile().isEmpty()) {
                     responseDTO.setMessage("Invalid mobile");
                 } else if (dto.getMobile().length() > 10) {
                     responseDTO.setMessage("Invalid mobile");
@@ -123,6 +125,9 @@ public class AccountController {
 
                         if (optionalBankAccount.isPresent()) {
                             responseDTO.setMessage(String.valueOf(optionalBankAccount.get().getAccountNumber())).setStatus(true);
+
+                            notificationService.notify(responseDTO);
+
                         } else {
                             responseDTO.setMessage("New bank account creat failed");
                         }

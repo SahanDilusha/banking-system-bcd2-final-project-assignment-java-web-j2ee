@@ -5,6 +5,7 @@ import jakarta.ejb.ActivationConfigProperty;
 import jakarta.ejb.MessageDriven;
 import jakarta.jms.Message;
 import jakarta.jms.MessageListener;
+import jakarta.jms.ObjectMessage;
 import jakarta.jms.TextMessage;
 
 @MessageDriven(
@@ -20,7 +21,10 @@ public class AdminNotificationService implements MessageListener {
 
         try {
 
-            if (message instanceof TextMessage) {
+            if (message instanceof ObjectMessage) {
+
+
+
                 System.out.println("AdminNotificationService onMessage " + ((TextMessage) message).getText());
             }
 

@@ -7,6 +7,7 @@ public class AppConfig extends ResourceConfig {
 
     public AppConfig() {
         packages("com.popcorntech.app.web.controller");
+        packages("com.popcorntech.app.web.websocket");
 
         register(JspMvcFeature.class);
         register(DependencyBinder.class);

@@ -10,11 +10,31 @@
     </parent>
 
     <artifactId>notification_service</artifactId>
+    <name>banking-system-notification-service</name>
+    <packaging>ejb</packaging>
 
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.popcorntech.app</groupId>
+            <artifactId>core</artifactId>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.name}</finalName>
+    </build>
 
 </project>

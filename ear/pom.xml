@@ -47,6 +47,13 @@
             <type>ejb</type>
         </dependency>
 
+        <dependency>
+            <groupId>com.popcorntech.app</groupId>
+            <artifactId>notification_service</artifactId>
+            <version>1.0</version>
+            <type>ejb</type>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -62,6 +69,12 @@
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
 
                     <modules>
+
+                        <ejbModule>
+                            <groupId>com.popcorntech.app</groupId>
+                            <artifactId>notification_service</artifactId>
+                            <bundleFileName>notification-service-module.jar</bundleFileName>
+                        </ejbModule>
 
                         <ejbModule>
                             <groupId>com.popcorntech.app</groupId>
