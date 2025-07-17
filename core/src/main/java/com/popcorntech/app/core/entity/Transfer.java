@@ -6,9 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "transfer")
-@NamedQueries({
-        @NamedQuery(name = "",query = "")
-})
+
 public class Transfer {
 
     @Id
