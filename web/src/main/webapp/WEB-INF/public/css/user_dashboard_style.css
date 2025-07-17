@@ -13,11 +13,14 @@
 body {
     font-family: 'Nunito', sans-serif;
     background: #f8f9fc;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
+/* Container */
 .dashboard-container {
     display: flex;
     min-height: 100vh;
+    position: relative;
 }
 
 /* Sidebar */
@@ -25,10 +28,17 @@ body {
     width: var(--sidebar-width);
     background: #4e73df;
     color: #fff;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
-    z-index: 1000;
+    z-index: 1040;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar.active {
+    margin-left: calc(-1 * var(--sidebar-width));
 }
 
 .sidebar-header {
@@ -42,8 +52,18 @@ body {
     margin-bottom: 10px;
 }
 
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
 .sidebar ul li a {
-    padding: 10px 20px;
+    padding: 15px 20px;
     display: block;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
@@ -54,50 +74,56 @@ body {
 .sidebar ul li.active > a {
     color: #fff;
     background: #4668ce;
+    padding-left: 25px;
 }
 
 .sidebar ul li a i {
     margin-right: 10px;
+    width: 20px;
+    text-align: center;
 }
 
 /* Content Area */
 .content {
+    flex: 1;
     margin-left: var(--sidebar-width);
+    transition: all 0.3s ease;
     width: calc(100% - var(--sidebar-width));
-    transition: all 0.3s;
+    position: relative;
 }
 
-/* Account Cards */
-.account-card {
-    transition: transform 0.3s;
+.content.active {
+    margin-left: 0;
+    width: 100%;
 }
 
-.account-card:hover {
-    transform: translateY(-5px);
+/* Navbar */
+.navbar {
+    padding: 1rem;
+    background: #fff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Transaction Table */
-.table th {
-    border-top: none;
+#sidebarCollapse {
+    background: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
 }
 
-.table td {
-    vertical-align: middle;
+#sidebarCollapse:hover {
+    background: rgba(0,0,0,0.05);
 }
 
-/* Quick Actions */
-.quick-actions .btn {
-    text-align: left;
+#sidebarCollapse i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
 }
 
-.quick-actions .btn i {
-    margin-right: 10px;
-}
-
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
     .sidebar {
-        margin-left: -var(--sidebar-width);
+        margin-left: calc(-1 * var(--sidebar-width));
     }
 
     .sidebar.active {
@@ -105,8 +131,8 @@ body {
     }
 
     .content {
-        width: 100%;
         margin-left: 0;
+        width: 100%;
     }
 
     .content.active {
@@ -114,8 +140,27 @@ body {
     }
 }
 
-/* Charts */
-.chart-container {
-    position: relative;
-    height: 200px;
+/* Dark Theme Support */
+body.dark-theme {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+body.dark-theme .sidebar {
+    background: #2d2d2d;
+}
+
+body.dark-theme .content {
+    background: #1a1a1a;
+}
+
+body.dark-theme .card {
+    background: #2d2d2d;
+    border-color: #3d3d3d;
+}
+
+/* Animation */
+.sidebar,
+.content {
+    will-change: margin-left, width;
 }

@@ -3,6 +3,36 @@ $(document).ready(function() {
     $('#sidebarCollapse').on('click', function() {
         $('.sidebar').toggleClass('active');
         $('.content').toggleClass('active');
+
+        // Store sidebar state
+        localStorage.setItem('sidebarState',
+            $('.sidebar').hasClass('active') ? 'collapsed' : 'expanded'
+        );
+    });
+
+    // Load saved sidebar state
+    const sidebarState = localStorage.getItem('sidebarState');
+    if (sidebarState === 'collapsed') {
+        $('.sidebar').addClass('active');
+        $('.content').addClass('active');
+    }
+
+    // Close sidebar on mobile when clicking outside
+    $(document).on('click touchstart', function(e) {
+        if ($(window).width() <= 768) {
+            if (!$(e.target).closest('.sidebar, #sidebarCollapse').length) {
+                $('.sidebar').addClass('active');
+                $('.content').addClass('active');
+            }
+        }
+    });
+
+    // Reset sidebar state on window resize
+    $(window).resize(function() {
+        if ($(window).width() > 768) {
+            $('.sidebar').removeClass('active');
+            $('.content').removeClass('active');
+        }
     });
 
     // Initialize spending chart

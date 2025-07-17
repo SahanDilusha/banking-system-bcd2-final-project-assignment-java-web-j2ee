@@ -59,7 +59,7 @@
         <!-- Top Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <button type="button" id="sidebarCollapse" class="btn">
                     <i class="bi bi-list"></i>
                 </button>
 
@@ -85,7 +85,8 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> Sign out</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> Sign out</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
