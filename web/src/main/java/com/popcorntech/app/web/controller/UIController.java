@@ -32,9 +32,21 @@ public class UIController {
     }
 
     @GET
+    @Path("/user")
+    public Viewable userIndex() {
+        return getViewable("user/index");
+    }
+
+    @GET
     @Path("/admin/{path}")
     public Viewable adminPages(@PathParam("path") String path) {
         return getViewable("admin/" + path);
+    }
+
+    @GET
+    @Path("/user/{path}")
+    public Viewable userPages(@PathParam("path") String path) {
+        return getViewable("user/" + path);
     }
 
     @GET
