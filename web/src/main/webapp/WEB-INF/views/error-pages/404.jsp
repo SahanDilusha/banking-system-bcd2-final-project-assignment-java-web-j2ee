@@ -103,11 +103,6 @@
              class="mb-4"
              style="width: 60px;">
 
-        <!-- Error Image -->
-        <img src="${pageContext.request.contextPath}/resources/image/404-illustration.png"
-             alt="404 Illustration"
-             class="error-image floating">
-
         <!-- Error Details -->
         <h1 class="error-code">404</h1>
         <h2 class="error-text">Page Not Found</h2>

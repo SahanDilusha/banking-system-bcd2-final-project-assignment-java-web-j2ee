@@ -25,6 +25,7 @@ public class BankAccount {
     User user;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private AccountType accountType = AccountType.SAVING_ACCOUNT;
 
     public User getUser() {
