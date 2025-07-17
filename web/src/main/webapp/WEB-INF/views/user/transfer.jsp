@@ -32,7 +32,7 @@
             </div>
 
             <div class="row">
-                <!-- Transfer Form Card -->
+                <!-- BankTransfer Form Card -->
                 <div class="col-12 col-lg-8 mb-4">
                     <div class="card shadow-sm">
                         <div class="card-header bg-white">
@@ -50,7 +50,7 @@
                                     </select>
                                 </div>
 
-                                <!-- Transfer Type -->
+                                <!-- BankTransfer Type -->
                                 <div class="mb-4">
                                     <label class="form-label">Transfer Type</label>
                                     <div class="btn-group w-100" role="group">
@@ -138,7 +138,7 @@
 
                 <!-- Right Sidebar -->
                 <div class="col-12 col-lg-4">
-                    <!-- Transfer Summary -->
+                    <!-- BankTransfer Summary -->
                     <div class="card shadow-sm mb-4">
                         <div class="card-header bg-white">
                             <h5 class="card-title mb-0">Transfer Summary</h5>

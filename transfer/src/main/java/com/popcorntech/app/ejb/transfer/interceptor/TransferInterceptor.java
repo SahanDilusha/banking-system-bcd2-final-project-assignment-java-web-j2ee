@@ -1,33 +1,21 @@
 package com.popcorntech.app.ejb.transfer.interceptor;
 
-import com.popcorntech.app.ejb.transfer.annotation.Transfer;
-import jakarta.inject.Inject;
+import com.popcorntech.app.ejb.transfer.annotation.BankTransfer;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
 
 @Interceptor
-@Transfer
+@BankTransfer
 public class TransferInterceptor {
-
 
     @AroundInvoke
     public Object processTransfer(InvocationContext context) throws Exception {
-        Transfer annotation = context.getMethod().getAnnotation(Transfer.class);
-
-        try {
+        try{
             return context.proceed();
-        }catch(Exception e) {
+        }catch(Exception e){
             throw e;
         }
-
-    }
-
-    private void validateTransfer(Object[] parameters, Transfer annotation) {
-
-    }
-
-    private void handleTransferError(Exception e, Object[] parameters) {
 
     }
 
