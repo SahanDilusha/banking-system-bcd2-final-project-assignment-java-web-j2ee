@@ -14,84 +14,11 @@
 <body>
 <div class="dashboard-container">
     <!-- Sidebar -->
-    <nav id="sidebar" class="sidebar">
-        <div class="sidebar-header">
-            <img src="${pageContext.request.contextPath}/resources/image/app/bank-logo.png" alt="Logo" class="logo">
-            <h3>My Banking</h3>
-        </div>
-
-        <ul class="list-unstyled components">
-            <li class="active">
-                <a href="#" class="dashboard-link">
-                    <i class="bi bi-speedometer2"></i> Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="#" class="accounts-link">
-                    <i class="bi bi-wallet2"></i> Accounts
-                </a>
-            </li>
-            <li>
-                <a href="#" class="transfer-link">
-                    <i class="bi bi-arrow-left-right"></i> Transfer
-                </a>
-            </li>
-            <li>
-                <a href="#" class="payments-link">
-                    <i class="bi bi-credit-card"></i> Payments
-                </a>
-            </li>
-            <li>
-                <a href="#" class="statements-link">
-                    <i class="bi bi-file-text"></i> Statements
-                </a>
-            </li>
-            <li>
-                <a href="#" class="profile-link">
-                    <i class="bi bi-person"></i> Profile
-                </a>
-            </li>
-        </ul>
-    </nav>
-
+    <jsp:include page="/WEB-INF/views/user/component/sidebar.jsp"/>
     <!-- Main Content -->
     <div class="content">
         <!-- Top Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn">
-                    <i class="bi bi-list"></i>
-                </button>
-
-                <div class="d-flex align-items-center">
-                    <div class="notifications me-3">
-                        <a href="#" class="position-relative">
-                            <i class="bi bi-bell fs-5"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                3
-                            </span>
-                        </a>
-                    </div>
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
-                           id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="User" width="32" height="32"
-                                 class="rounded-circle me-2">
-                            <strong>John Doe</strong>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Settings</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> Sign out</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <jsp:include page="/WEB-INF/views/user/component/top-navigation.jsp"/>
 
         <!-- Dashboard Content -->
         <div class="container-fluid p-4">
