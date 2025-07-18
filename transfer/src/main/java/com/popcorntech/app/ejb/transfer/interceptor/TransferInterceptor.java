@@ -55,7 +55,6 @@ public class TransferInterceptor {
                 throw new InvalidTransferException("Invalid amount");
             }
 
-
             return context.proceed();
         } catch (Exception e) {
             throw e;

@@ -2,8 +2,10 @@ package com.popcorntech.app.ejb.transfer.session;
 
 import com.popcorntech.app.core.dto.TransferRequestDTO;
 import com.popcorntech.app.core.entity.Transfer;
+import com.popcorntech.app.core.entity.TransferStatus;
 import com.popcorntech.app.core.service.BankAccountService;
 import com.popcorntech.app.core.service.TransferService;
+import com.popcorntech.app.core.service.TransferTypeService;
 import com.popcorntech.app.ejb.transfer.annotation.BankTransfer;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
@@ -13,6 +15,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Stateless
@@ -23,6 +26,9 @@ public class TransferSessionBean implements TransferService {
 
     @EJB
     private BankAccountService bankAccountService;
+
+    @EJB
+    private TransferTypeService transferTypeService;
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -45,6 +51,16 @@ public class TransferSessionBean implements TransferService {
     public Optional<Transfer> save(TransferRequestDTO requestDTO) {
 
         try {
+
+            Transfer transfer = new Transfer().setAmount(requestDTO.getAmount()).setDate(new Date()).
+                    setFromAccount(bankAccountService.findAccountById(requestDTO.getFromAccount()).get())
+                    .setToAccount(bankAccountService.findAccountById(requestDTO.getToAccount()).get()).setReference(requestDTO.getReference())
+                    .setTransferType(transferTypeService.getTransferType(requestDTO.getTransferType()).get())
+                    .setStatus(TransferStatus.FAILURE);
+
+            em.persist(transfer);
+            em.flush();
+            return Optional.of(transfer);
 
         } catch (Exception e) {
             e.printStackTrace();

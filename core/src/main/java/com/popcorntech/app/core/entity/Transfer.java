@@ -6,7 +6,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "transfer")
-
 public class Transfer {
 
     @Id
@@ -19,19 +18,19 @@ public class Transfer {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @JoinColumn(name = "from_account",nullable = false)
+    @JoinColumn(name = "from_account", nullable = false)
     @ManyToOne
     private BankAccount fromAccount;
 
-    @JoinColumn(name = "to_account",nullable = false)
+    @JoinColumn(name = "to_account", nullable = false)
     @ManyToOne
     private BankAccount toAccount;
 
-    @Column(name = "reference", nullable = false,length = 100)
+    @Column(name = "reference", nullable = false, length = 100)
     private String reference;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "transfer_type",nullable = false)
+    @Column(name = "transfer_type", nullable = false)
     private TransferType transferType = TransferType.INTERNAL;
 
     @Enumerated(EnumType.STRING)
