@@ -11,12 +11,12 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface BankTransfer {
 
-    TransferType type() default TransferType.INTERNAL;
-
-    double maxAmount() default 100000.0;
-
-    boolean requiresApproval() default false;
-
-    String allowedRoles() default "";
+//    TransferType type() default TransferType.INTERNAL;
+//
+    double maxAmount() default 500000.0;
+//
+//    boolean requiresApproval() default false;
+//
+//    String allowedRoles() default "";
 
 }

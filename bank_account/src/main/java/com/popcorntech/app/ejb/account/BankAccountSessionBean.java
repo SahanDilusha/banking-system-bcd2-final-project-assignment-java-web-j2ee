@@ -18,6 +18,22 @@ public class BankAccountSessionBean implements BankAccountService {
     private EntityManager em;
 
     @Override
+    public boolean checkBalance(Long accountNo, Double amount) {
+        try {
+
+            if (existsAccountById(accountNo)) {
+                if (findAccountById(accountNo).get().getBalance() < amount) {
+                    return true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public Optional<BankAccount> findAccountById(Long id) {
 
         try {

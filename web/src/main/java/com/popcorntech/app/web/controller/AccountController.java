@@ -3,6 +3,7 @@ package com.popcorntech.app.web.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.popcorntech.app.core.dto.CreatBankAccountRequestDTO;
 import com.popcorntech.app.core.dto.ResponseDTO;
+import com.popcorntech.app.core.dto.TransferRequestDTO;
 import com.popcorntech.app.core.entity.BankAccount;
 import com.popcorntech.app.core.entity.User;
 import com.popcorntech.app.core.service.*;
@@ -37,6 +38,38 @@ public class AccountController {
     private AccountStatusService accountStatusService;
     @EJB
     private NotificationService notificationService;
+    @EJB
+    private TransferService transferService;
+
+    @POST
+    @Path("/transfer")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response transfer(TransferRequestDTO requestDTO) {
+
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        try {
+
+            if (requestDTO != null) {
+
+                if (transferService.save(requestDTO).isPresent()) {
+
+                } else {
+                    responseDTO.setMessage("Transfer failed");
+                }
+
+            } else {
+                responseDTO.setMessage("Invalid request");
+            }
+
+            return Response.ok().entity(responseDTO).build();
+        } catch (Exception e) {
+            return Response.ok().entity(responseDTO.setMessage(e.getMessage())).build();
+        }
+
+
+    }
 
     @POST
     @Path("/create")

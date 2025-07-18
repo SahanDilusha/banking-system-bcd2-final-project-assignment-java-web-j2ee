@@ -2,36 +2,36 @@ package com.popcorntech.app.core.dto;
 
 public class TransferRequestDTO {
 
-    private String fromAccount;
-    private String toAccount;
-    private String amount;
+    private Long fromAccount;
+    private Long toAccount;
+    private Double amount;
     private String holderName;
     private String reference;
     private String transferType;
 
-    public String getFromAccount() {
+    public Long getFromAccount() {
         return fromAccount;
     }
 
-    public TransferRequestDTO setFromAccount(String fromAccount) {
+    public TransferRequestDTO setFromAccount(Long fromAccount) {
         this.fromAccount = fromAccount;
         return this;
     }
 
-    public String getToAccount() {
+    public Long getToAccount() {
         return toAccount;
     }
 
-    public TransferRequestDTO setToAccount(String toAccount) {
+    public TransferRequestDTO setToAccount(Long toAccount) {
         this.toAccount = toAccount;
         return this;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public TransferRequestDTO setAmount(String amount) {
+    public TransferRequestDTO setAmount(Double amount) {
         this.amount = amount;
         return this;
     }

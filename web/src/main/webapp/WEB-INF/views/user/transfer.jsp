@@ -1,9 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ctx" content="${pageContext.request.contextPath}">
+
     <title>Account Dashboard | Transfer</title>
 
     <!-- CSS -->
@@ -12,6 +15,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
+
 <body>
 <div class="dashboard-container">
     <!-- Sidebar -->
@@ -43,7 +47,7 @@
                                 <!-- From Account -->
                                 <div class="mb-4">
                                     <label class="form-label">From Account</label>
-                                    <select class="form-select">
+                                    <select class="form-select" id="fromAccount">
                                         <option selected disabled>Select source account</option>
                                         <option value="1">Savings Account (**** 1234) - $12,345.67</option>
                                         <option value="2">Checking Account (**** 5678) - $3,456.78</option>
@@ -126,7 +130,7 @@
                                     </button>
                                     <div>
                                         <button type="button" class="btn btn-light me-2">Save as Draft</button>
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary" id="transferBtn">
                                             <i class="bi bi-arrow-right-circle"></i> Continue
                                         </button>
                                     </div>
@@ -136,66 +140,27 @@
                     </div>
                 </div>
 
-                <!-- Right Sidebar -->
-                <div class="col-12 col-lg-4">
-                    <!-- BankTransfer Summary -->
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-header bg-white">
-                            <h5 class="card-title mb-0">Transfer Summary</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="text-muted">Amount:</span>
-                                <span class="fw-bold">$0.00</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="text-muted">Fee:</span>
-                                <span class="fw-bold">$0.00</span>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between mb-0">
-                                <span class="text-muted">Total:</span>
-                                <span class="fw-bold fs-5">$0.00</span>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Recent Recipients -->
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-white">
-                            <h5 class="card-title mb-0">Recent Recipients</h5>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="list-group list-group-flush">
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle bg-primary text-white p-2 me-3">
-                                            <i class="bi bi-person"></i>
-                                        </div>
-                                        <div>
-                                            <h6 class="mb-0">John Smith</h6>
-                                            <small class="text-muted">**** 4321</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle bg-success text-white p-2 me-3">
-                                            <i class="bi bi-person"></i>
-                                        </div>
-                                        <div>
-                                            <h6 class="mb-0">Sarah Johnson</h6>
-                                            <small class="text-muted">**** 8765</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="model" tabindex="-1" aria-labelledby="model-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-title">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- JavaScript -->

@@ -1,10 +1,10 @@
 package com.popcorntech.app.ejb.transfer.session;
 
-import com.popcorntech.app.ejb.transfer.annotation.BankTransfer;
+import com.popcorntech.app.core.dto.TransferRequestDTO;
 import com.popcorntech.app.core.entity.Transfer;
-import com.popcorntech.app.core.entity.TransferType;
 import com.popcorntech.app.core.service.BankAccountService;
 import com.popcorntech.app.core.service.TransferService;
+import com.popcorntech.app.ejb.transfer.annotation.BankTransfer;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.ejb.TransactionAttribute;
@@ -24,7 +24,6 @@ public class TransferSessionBean implements TransferService {
     @EJB
     private BankAccountService bankAccountService;
 
-
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Optional<Transfer> findById(Long id) {
@@ -42,11 +41,11 @@ public class TransferSessionBean implements TransferService {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    @BankTransfer(type = TransferType.INTERNAL, maxAmount = 50000000.0)
-    public Optional<Transfer> save(Transfer transfer) {
+    @BankTransfer
+    public Optional<Transfer> save(TransferRequestDTO requestDTO) {
 
         try {
-            em.persist(transfer);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

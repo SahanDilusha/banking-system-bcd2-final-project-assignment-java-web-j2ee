@@ -18,6 +18,8 @@ public interface BankAccountService {
 
     Optional<BankAccount> createAccount(BankAccount account);
 
-    Optional <BankAccount> updateAccount(BankAccount account);
+    Optional<BankAccount> updateAccount(BankAccount account);
+
+    boolean checkBalance(Long accountNo, Double amount);
 
 }
