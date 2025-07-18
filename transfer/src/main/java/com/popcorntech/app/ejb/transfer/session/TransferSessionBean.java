@@ -3,9 +3,13 @@ package com.popcorntech.app.ejb.transfer.session;
 import com.popcorntech.app.core.dto.TransferRequestDTO;
 import com.popcorntech.app.core.entity.Transfer;
 import com.popcorntech.app.core.entity.TransferStatus;
+import com.popcorntech.app.core.exception.InvalidTransferException;
 import com.popcorntech.app.core.service.BankAccountService;
+import com.popcorntech.app.core.service.OTPTimerService;
 import com.popcorntech.app.core.service.TransferService;
 import com.popcorntech.app.core.service.TransferTypeService;
+import com.popcorntech.app.core.util.TimerTask;
+import com.popcorntech.app.core.util.ValidationUtil;
 import com.popcorntech.app.ejb.transfer.annotation.BankTransfer;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
@@ -30,6 +34,24 @@ public class TransferSessionBean implements TransferService {
     @EJB
     private TransferTypeService transferTypeService;
 
+    @EJB
+    private OTPTimerService otpTimerService;
+
+    @Override
+    public boolean isTransfer(long id) {
+        return findById(id).isPresent();
+    }
+
+    @Override
+    public Optional<Transfer> update(Transfer transfer) {
+        try {
+            em.merge(transfer);
+            return Optional.ofNullable(transfer);
+        } catch (Exception e) {
+            throw new InvalidTransferException("Invalid transfer request");
+        }
+    }
+
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Optional<Transfer> findById(Long id) {
@@ -47,19 +69,24 @@ public class TransferSessionBean implements TransferService {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    @BankTransfer
+    @BankTransfer(maxAmount = 500000.0)
     public Optional<Transfer> save(TransferRequestDTO requestDTO) {
 
         try {
+
+            String otp = ValidationUtil.getInstance().passwordGenerator(6);
 
             Transfer transfer = new Transfer().setAmount(requestDTO.getAmount()).setDate(new Date()).
                     setFromAccount(bankAccountService.findAccountById(requestDTO.getFromAccount()).get())
                     .setToAccount(bankAccountService.findAccountById(requestDTO.getToAccount()).get()).setReference(requestDTO.getReference())
                     .setTransferType(transferTypeService.getTransferType(requestDTO.getTransferType()).get())
-                    .setStatus(TransferStatus.FAILURE);
+                    .setStatus(TransferStatus.FAILURE).setOtp(otp);
 
             em.persist(transfer);
             em.flush();
+
+            otpTimerService.doTask(180000L, new TimerTask(transfer.getId(), ""));
+
             return Optional.of(transfer);
 
         } catch (Exception e) {

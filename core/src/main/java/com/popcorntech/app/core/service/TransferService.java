@@ -10,4 +10,8 @@ public interface TransferService {
 
     Optional<Transfer> save(TransferRequestDTO requestDTO);
 
+    Optional<Transfer> update(Transfer transfer );
+
+    boolean isTransfer(long  id);
+
 }

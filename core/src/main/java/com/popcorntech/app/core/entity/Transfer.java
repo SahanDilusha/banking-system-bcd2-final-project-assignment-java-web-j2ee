@@ -29,6 +29,9 @@ public class Transfer {
     @Column(name = "reference", nullable = false, length = 100)
     private String reference;
 
+    @Column(name = "otp",nullable = false,length = 6)
+    private String otp;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "transfer_type", nullable = false)
     private TransferType transferType = TransferType.INTERNAL;
@@ -38,6 +41,15 @@ public class Transfer {
     private TransferStatus status = TransferStatus.SUCCESS;
 
     public Transfer() {
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public Transfer setOtp(String otp) {
+        this.otp = otp;
+        return this;
     }
 
     public Long getId() {

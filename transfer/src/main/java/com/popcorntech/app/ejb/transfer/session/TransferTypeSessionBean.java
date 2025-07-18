@@ -15,9 +15,9 @@ public class TransferTypeSessionBean implements TransferTypeService {
         try {
             switch (transferType) {
                 case "INTERNAL":
-                    Optional.of(TransferType.INTERNAL);
+                    return Optional.of(TransferType.INTERNAL);
                 case "EXTERNAL":
-                    Optional.of(TransferType.EXTERNAL);
+                    return Optional.of(TransferType.EXTERNAL);
                 default:
                     return Optional.empty();
             }

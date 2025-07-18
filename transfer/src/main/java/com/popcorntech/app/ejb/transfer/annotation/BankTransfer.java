@@ -1,6 +1,5 @@
 package com.popcorntech.app.ejb.transfer.annotation;
 
-import com.popcorntech.app.core.entity.TransferType;
 import jakarta.interceptor.InterceptorBinding;
 
 import java.lang.annotation.*;
@@ -11,12 +10,6 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface BankTransfer {
 
-//    TransferType type() default TransferType.INTERNAL;
-//
     double maxAmount() default 500000.0;
-//
-//    boolean requiresApproval() default false;
-//
-//    String allowedRoles() default "";
 
 }

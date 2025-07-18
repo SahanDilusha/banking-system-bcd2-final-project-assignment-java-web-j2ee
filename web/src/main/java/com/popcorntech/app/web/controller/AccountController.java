@@ -54,6 +54,8 @@ public class AccountController {
             if (requestDTO != null) {
 
                 if (transferService.save(requestDTO).isPresent()) {
+                    responseDTO.setMessage("Transfer successful");
+                    responseDTO.setStatus(true);
 
                 } else {
                     responseDTO.setMessage("Transfer failed");
