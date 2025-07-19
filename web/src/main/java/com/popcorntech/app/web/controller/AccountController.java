@@ -4,15 +4,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.popcorntech.app.core.dto.CreatBankAccountRequestDTO;
 import com.popcorntech.app.core.dto.ResponseDTO;
 import com.popcorntech.app.core.dto.TransferRequestDTO;
+import com.popcorntech.app.core.dto.TransferVerificationRequest;
 import com.popcorntech.app.core.entity.BankAccount;
+import com.popcorntech.app.core.entity.Transfer;
+import com.popcorntech.app.core.entity.TransferStatus;
 import com.popcorntech.app.core.entity.User;
 import com.popcorntech.app.core.service.*;
 import com.popcorntech.app.core.util.ValidationUtil;
 import jakarta.ejb.EJB;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -42,10 +48,64 @@ public class AccountController {
     private TransferService transferService;
 
     @POST
+    @Path("/transfer-verification")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response transferVerification(@Context HttpServletRequest request, TransferVerificationRequest verificationRequest) {
+
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        try {
+
+            if (verificationRequest == null || verificationRequest.getOtp().isEmpty() || verificationRequest.getHashedPassword().isEmpty()) {
+                responseDTO.setMessage("Invalid Request");
+            } else {
+
+                System.out.println(verificationRequest.getHashedPassword());
+
+                Transfer transfer = (Transfer) request.getSession().getAttribute("new_transfer");
+
+                if (transfer == null) {
+                    responseDTO.setMessage("Invalid Request");
+                } else {
+                    String hasp = String.valueOf(transfer.getId()) + String.valueOf(transfer.getFromAccount()) + String.valueOf(transfer.getToAccount()) + String.valueOf(transfer.getAmount()) + verificationRequest.getOtp();
+
+                    if (ValidationUtil.getInstance().checkPassword(hasp, verificationRequest.getHashedPassword())) {
+
+                        if (transfer.getFromAccount().getBalance() > transfer.getAmount()) {
+                            transfer.setAmount(transfer.getFromAccount().getBalance() - transfer.getAmount());
+                        } else if (transfer.getFromAccount().getBalance() <= transfer.getAmount()) {
+                            transfer.setAmount(0.00);
+                        }
+
+                        transfer.setStatus(TransferStatus.SUCCESS);
+
+                        transferService.update(transfer);
+
+                        responseDTO.setMessage(String.valueOf(transfer.getId()));
+                        responseDTO.setStatus(true);
+
+                    } else {
+                        responseDTO.setMessage("Invalid Request");
+                    }
+
+                }
+
+            }
+
+            return Response.ok().entity(responseDTO).build();
+
+        } catch (Exception e) {
+            return Response.ok().entity(responseDTO.setMessage(e.getMessage())).build();
+        }
+
+    }
+
+    @POST
     @Path("/transfer")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response transfer(TransferRequestDTO requestDTO) {
+    public Response transfer(TransferRequestDTO requestDTO, @Context HttpServletResponse response, @Context HttpServletRequest request) {
 
         ResponseDTO responseDTO = new ResponseDTO();
 
@@ -53,9 +113,14 @@ public class AccountController {
 
             if (requestDTO != null) {
 
-                if (transferService.save(requestDTO).isPresent()) {
-                    responseDTO.setMessage("Transfer successful");
+                Optional<Transfer> optional = transferService.save(requestDTO);
+
+                if (optional.isPresent()) {
+                    responseDTO.setMessage("/user/transfer-otp-verification?hs=" + ValidationUtil.getInstance()
+                            .hashPassword(String.valueOf(optional.get().getId()) + String.valueOf(optional.get().getFromAccount()) + String.valueOf(optional.get().getToAccount()) + String.valueOf(optional.get().getAmount()) + optional.get().getOtp()));
                     responseDTO.setStatus(true);
+
+                    request.getSession().setAttribute("new_transfer", optional.get());
 
                 } else {
                     responseDTO.setMessage("Transfer failed");

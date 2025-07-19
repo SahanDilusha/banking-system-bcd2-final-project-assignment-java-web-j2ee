@@ -8,6 +8,7 @@ public class TransferRequestDTO {
     private String holderName;
     private String reference;
     private String transferType;
+    private String hash;
 
     public Long getFromAccount() {
         return fromAccount;
@@ -15,6 +16,15 @@ public class TransferRequestDTO {
 
     public TransferRequestDTO setFromAccount(Long fromAccount) {
         this.fromAccount = fromAccount;
+        return this;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public TransferRequestDTO setHash(String hash) {
+        this.hash = hash;
         return this;
     }
 

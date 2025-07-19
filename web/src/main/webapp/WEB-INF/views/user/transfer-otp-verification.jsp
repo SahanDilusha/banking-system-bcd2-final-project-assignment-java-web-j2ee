@@ -29,7 +29,7 @@
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
@@ -175,7 +175,7 @@
                 </div>
 
                 <!-- Verify Button -->
-                <button type="submit" class="btn btn-verify btn-primary w-100">
+                <button type="button" class="btn btn-verify btn-primary w-100" id="btnTransfer">
                     Verify & Complete Transfer
                 </button>
             </form>
@@ -188,91 +188,33 @@
             <i class="bi bi-arrow-left"></i> Cancel Transfer
         </a>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="model" tabindex="-1" aria-labelledby="model-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-title">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 <!-- JavaScript -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/transfer_verification_script.js"></script>
 
-<script>
-    $(document).ready(function() {
-        // OTP Input Handling
-        $('.otp-inputs input').on('input', function() {
-            if (this.value.length === 1) {
-                $(this).next('input').focus();
-            }
-        });
 
-        $('.otp-inputs input').on('keydown', function(e) {
-            if (e.key === 'Backspace' && !this.value) {
-                $(this).prev('input').focus();
-            }
-        });
-
-        // Timer
-        let timeLeft = 179; // 2:59 in seconds
-        const timerEl = $('.timer');
-
-        const timer = setInterval(function() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-
-            timerEl.text(
-                minutes.toString().padStart(2, '0') + ':' +
-                seconds.toString().padStart(2, '0')
-            );
-
-            if (timeLeft === 0) {
-                clearInterval(timer);
-                $('#resendLink').removeClass('disabled');
-            } else {
-                timeLeft--;
-            }
-        }, 1000);
-
-        // Form Submit
-        $('#otpForm').on('submit', function(e) {
-            e.preventDefault();
-
-            // Get OTP
-            const otp = Array.from($('.otp-inputs input'))
-                .map(input => input.value)
-                .join('');
-
-            // Show loading state
-            const submitBtn = $(this).find('button[type="submit"]');
-            const originalText = submitBtn.html();
-            submitBtn.prop('disabled', true)
-                .html('<span class="spinner-border spinner-border-sm"></span> Verifying...');
-
-            // Simulate verification (replace with actual verification)
-            setTimeout(function() {
-                submitBtn.html(originalText).prop('disabled', false);
-                // Show success and redirect
-                window.location.href = 'transfer-success.jsp';
-            }, 2000);
-        });
-
-        // Resend OTP
-        $('#resendLink').on('click', function(e) {
-            e.preventDefault();
-
-            if ($(this).hasClass('disabled')) {
-                return;
-            }
-
-            $(this).addClass('disabled');
-            timeLeft = 179;
-
-            // Show resend confirmation
-            const originalText = $(this).text();
-            $(this).html('<i class="bi bi-check-circle"></i> OTP Sent!');
-
-            setTimeout(() => {
-                $(this).text(originalText);
-            }, 3000);
-        });
-    });
-</script>
 </body>
 </html>

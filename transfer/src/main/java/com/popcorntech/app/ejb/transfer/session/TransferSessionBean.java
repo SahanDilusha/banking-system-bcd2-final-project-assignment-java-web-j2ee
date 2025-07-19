@@ -78,18 +78,14 @@ public class TransferSessionBean implements TransferService {
 
             String otp = ValidationUtil.getInstance().passwordGenerator(6);
 
-            Transfer transfer = new Transfer().setAmount(requestDTO.getAmount()).setDate(new Date()).
-                    setFromAccount(bankAccountService.findAccountById(requestDTO.getFromAccount()).get())
-                    .setToAccount(bankAccountService.findAccountById(requestDTO.getToAccount()).get()).setReference(requestDTO.getReference())
-                    .setTransferType(transferTypeService.getTransferType(requestDTO.getTransferType()).get())
-                    .setStatus(TransferStatus.FAILURE).setOtp(otp);
+            Transfer transfer = new Transfer().setAmount(requestDTO.getAmount()).setDate(new Date()).setFromAccount(bankAccountService.findAccountById(requestDTO.getFromAccount()).get()).setToAccount(bankAccountService.findAccountById(requestDTO.getToAccount()).get()).setReference(requestDTO.getReference()).setTransferType(transferTypeService.getTransferType(requestDTO.getTransferType()).get()).setStatus(TransferStatus.FAILURE).setOtp(otp);
 
             em.persist(transfer);
             em.flush();
 
             otpTimerService.doTask(180000L, new TimerTask(transfer.getId(), ""));
 
-            OTPMail otpMail = new OTPMail("sdilusha34@gmail.com", "123456");
+            OTPMail otpMail = new OTPMail("sdilusha34@gmail.com", otp);
 
             MailServiceProvider.getInstance().sendMail(otpMail);
 

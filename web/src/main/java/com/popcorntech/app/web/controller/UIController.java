@@ -1,7 +1,11 @@
 package com.popcorntech.app.web.controller;
 
+import com.popcorntech.app.core.entity.Transfer;
+import com.popcorntech.app.core.util.ValidationUtil;
 import jakarta.annotation.security.DenyAll;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -23,7 +27,6 @@ public class UIController {
         System.out.println("index method ui");
         return getViewable("index");
     }
-
 
     @GET
     @Path("/admin")
@@ -53,6 +56,29 @@ public class UIController {
     @Path("/register")
     public Viewable register() {
         return getViewable("register");
+    }
+
+    @GET
+    @Path("/user/transfer-otp-verification")
+    public Viewable transferVerification(@Context HttpServletRequest request, @Context HttpServletResponse response) {
+
+        String hashedPassword = request.getParameter("hs");
+        System.out.println(hashedPassword);
+
+        Transfer transfer = (Transfer) request.getSession().getAttribute("new_transfer");
+
+        if (transfer != null) {
+
+            String hasp = String.valueOf(transfer.getId()) + String.valueOf(transfer.getFromAccount()) + String.valueOf(transfer.getToAccount()) + String.valueOf(transfer.getAmount()) + transfer.getOtp();
+
+            if (ValidationUtil.getInstance().checkPassword(hasp, hashedPassword)) {
+                return getViewable("user/transfer-otp-verification");
+            }
+
+        }
+
+        throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+
     }
 
     @DenyAll
