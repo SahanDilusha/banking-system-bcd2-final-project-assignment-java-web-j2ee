@@ -4,6 +4,8 @@ import com.popcorntech.app.core.dto.TransferRequestDTO;
 import com.popcorntech.app.core.entity.Transfer;
 import com.popcorntech.app.core.entity.TransferStatus;
 import com.popcorntech.app.core.exception.InvalidTransferException;
+import com.popcorntech.app.core.mail.OTPMail;
+import com.popcorntech.app.core.provider.MailServiceProvider;
 import com.popcorntech.app.core.service.BankAccountService;
 import com.popcorntech.app.core.service.OTPTimerService;
 import com.popcorntech.app.core.service.TransferService;
@@ -86,6 +88,10 @@ public class TransferSessionBean implements TransferService {
             em.flush();
 
             otpTimerService.doTask(180000L, new TimerTask(transfer.getId(), ""));
+
+            OTPMail otpMail = new OTPMail("sdilusha34@gmail.com", "123456");
+
+            MailServiceProvider.getInstance().sendMail(otpMail);
 
             return Optional.of(transfer);
 
