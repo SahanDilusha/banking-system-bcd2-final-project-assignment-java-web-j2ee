@@ -11,6 +11,7 @@ import com.popcorntech.app.core.entity.TransferStatus;
 import com.popcorntech.app.core.entity.User;
 import com.popcorntech.app.core.service.*;
 import com.popcorntech.app.core.util.ValidationUtil;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -51,6 +52,7 @@ public class AccountController {
     @Path("/transfer-verification")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"USER"})
     public Response transferVerification(@Context HttpServletRequest request, TransferVerificationRequest verificationRequest) {
 
         ResponseDTO responseDTO = new ResponseDTO();
@@ -107,6 +109,7 @@ public class AccountController {
     @Path("/transfer")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"USER"})
     public Response transfer(TransferRequestDTO requestDTO, @Context HttpServletResponse response, @Context HttpServletRequest request) {
 
         ResponseDTO responseDTO = new ResponseDTO();
@@ -144,6 +147,7 @@ public class AccountController {
     @Path("/create")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN"})
     public Response creatBankAccount(@FormDataParam("dto") String json) {
 
         ResponseDTO responseDTO = new ResponseDTO();

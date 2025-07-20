@@ -17,9 +17,11 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.ejb.TransactionAttribute;
 import jakarta.ejb.TransactionAttributeType;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.UserTransaction;
 
 import java.util.Date;
 import java.util.Optional;
@@ -29,6 +31,9 @@ public class TransferSessionBean implements TransferService {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Inject
+    private UserTransaction utx;
 
     @EJB
     private BankAccountService bankAccountService;
@@ -70,7 +75,7 @@ public class TransferSessionBean implements TransferService {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     @BankTransfer(maxAmount = 500000.0)
     public Optional<Transfer> save(TransferRequestDTO requestDTO) {
 
@@ -80,8 +85,13 @@ public class TransferSessionBean implements TransferService {
 
             Transfer transfer = new Transfer().setAmount(requestDTO.getAmount()).setDate(new Date()).setFromAccount(bankAccountService.findAccountById(requestDTO.getFromAccount()).get()).setToAccount(bankAccountService.findAccountById(requestDTO.getToAccount()).get()).setReference(requestDTO.getReference()).setTransferType(transferTypeService.getTransferType(requestDTO.getTransferType()).get()).setStatus(TransferStatus.FAILURE).setOtp(otp);
 
+            utx.begin();
+
             em.persist(transfer);
             em.flush();
+
+            utx.commit();
+
 
             otpTimerService.doTask(180000L, new TimerTask(transfer.getId(), ""));
 
@@ -92,6 +102,11 @@ public class TransferSessionBean implements TransferService {
             return Optional.of(transfer);
 
         } catch (Exception e) {
+            try {
+                utx.rollback();
+            } catch (Exception rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
             e.printStackTrace();
             throw new InvalidTransferException("Invalid transfer request");
         }

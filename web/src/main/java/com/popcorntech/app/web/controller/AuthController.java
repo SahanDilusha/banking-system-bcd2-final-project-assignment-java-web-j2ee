@@ -6,6 +6,7 @@ import com.popcorntech.app.core.dto.UserRegisterRequestDTO;
 import com.popcorntech.app.core.service.ActiveUserManagerService;
 import com.popcorntech.app.core.service.UserService;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.AuthenticationStatus;
@@ -32,25 +33,6 @@ public class AuthController {
     private UserService userService;
     @EJB
     private ActiveUserManagerService activeUserManagerService;
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @PermitAll
-    public Response registerUser(UserRegisterRequestDTO registerRequestDTO) {
-        ResponseDTO responseDTO = new ResponseDTO();
-
-        try {
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseDTO.setMessage("Register failed!");
-            return Response.status(Response.Status.OK).entity(responseDTO).build();
-        }
-        return null;
-    }
-
 
     @POST
     @Path("/login")
@@ -95,6 +77,7 @@ public class AuthController {
 
     @POST
     @Path("/logout")
+    @RolesAllowed({"ADMIN","USER"})
     public Response logout(@Context HttpServletRequest request) {
         ResponseDTO responseDTO = new ResponseDTO();
 

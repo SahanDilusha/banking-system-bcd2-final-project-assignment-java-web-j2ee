@@ -3,6 +3,8 @@ package com.popcorntech.app.web.controller;
 import com.popcorntech.app.core.entity.Transfer;
 import com.popcorntech.app.core.util.ValidationUtil;
 import jakarta.annotation.security.DenyAll;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +25,7 @@ public class UIController {
     private ServletContext servletContext;
 
     @GET
+    @PermitAll
     public Viewable index() {
         System.out.println("index method ui");
         return getViewable("index");
@@ -30,36 +33,42 @@ public class UIController {
 
     @GET
     @Path("/admin")
+    @RolesAllowed({"ADMIN"})
     public Viewable adminIndex() {
         return getViewable("admin/index");
     }
 
     @GET
     @Path("/user")
+    @RolesAllowed({"USER"})
     public Viewable userIndex() {
         return getViewable("user/index");
     }
 
     @GET
     @Path("/admin/{path}")
+    @RolesAllowed({"ADMIN"})
     public Viewable adminPages(@PathParam("path") String path) {
         return getViewable("admin/" + path);
     }
 
     @GET
     @Path("/user/{path}")
+    @RolesAllowed({"USER"})
     public Viewable userPages(@PathParam("path") String path) {
         return getViewable("user/" + path);
     }
 
     @GET
     @Path("/register")
+    @PermitAll
     public Viewable register() {
         return getViewable("register");
     }
 
     @GET
     @Path("/user/transfer-otp-verification")
+    @RolesAllowed({"USER"})
     public Viewable transferVerification(@Context HttpServletRequest request, @Context HttpServletResponse response) {
 
         String hashedPassword = request.getParameter("hs");

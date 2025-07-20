@@ -21,22 +21,16 @@ public class PaymentCollectionSession {
     @EJB
     private BankServicePaymentService bankServicePaymentService;
 
-
     @Schedule(year = "*", month = "*", dayOfMonth = "30", hour = "1", minute = "0")
     public void collectCharges() {
         System.out.println("Collecting  service charges...");
 
         List<BankAccount> accounts = bankAccountService.findAllAccounts();
-
         for (BankAccount account : accounts) {
-
             if (bankServicePaymentService.save(new BankServicePayment()
                     .setBankAccount(account).setAmount(account.getBalance() - account.getBalance()).setDate(new Date())).isPresent()) {
                 bankAccountService.updateAccount(account.setBalance(account.getBalance() > 0 && account.getBalance() > 700 ? account.getBalance() - 700 : 0));
             }
-
         }
-
     }
-
 }
