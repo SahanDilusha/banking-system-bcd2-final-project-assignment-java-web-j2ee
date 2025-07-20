@@ -24,6 +24,18 @@ public class BankAccountSessionBean implements BankAccountService {
     private InterestTimerService interestTimerService;
 
     @Override
+    public List<BankAccount> findAllAccounts() {
+        try {
+
+            return em.createNamedQuery("BankAccount.findAllAccount", BankAccount.class).getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public boolean checkBalance(Long accountNo, Double amount) {
         try {
 

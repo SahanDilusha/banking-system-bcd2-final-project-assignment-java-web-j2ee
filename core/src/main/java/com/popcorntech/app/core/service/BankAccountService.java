@@ -22,6 +22,7 @@ public interface BankAccountService {
 
     boolean checkBalance(Long accountNo, Double amount);
 
+    List<BankAccount> findAllAccounts();
 
 
 }

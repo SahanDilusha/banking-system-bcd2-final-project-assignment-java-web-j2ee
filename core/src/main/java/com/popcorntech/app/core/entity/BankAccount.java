@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "bank_account")
 @NamedQueries({
-        @NamedQuery(name = "BankAccount.findAccountByEmail",query = "SELECT a FROM BankAccount a WHERE a.user.email = :email"),
-        @NamedQuery(name = "BankAccount.findAccountByUser",query = "SELECT a FROM BankAccount a WHERE a.user = :user")
+        @NamedQuery(name = "BankAccount.findAccountByEmail", query = "SELECT a FROM BankAccount a WHERE a.user.email = :email"),
+        @NamedQuery(name = "BankAccount.findAccountByUser", query = "SELECT a FROM BankAccount a WHERE a.user = :user"),
+        @NamedQuery(name = "BankAccount.findAllAccount", query = "SELECT a FROM BankAccount a")
+
 })
 public class BankAccount {
     @Id
