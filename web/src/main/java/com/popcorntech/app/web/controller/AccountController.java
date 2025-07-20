@@ -78,6 +78,8 @@ public class AccountController {
                             transfer.setAmount(0.00);
                         }
 
+                        transfer.getToAccount().setBalance(transfer.getToAccount().getBalance() + transfer.getAmount());
+
                         transfer.setStatus(TransferStatus.SUCCESS);
 
                         transferService.update(transfer);

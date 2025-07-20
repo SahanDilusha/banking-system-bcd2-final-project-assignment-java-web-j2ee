@@ -9,6 +9,5 @@ public class RequestFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
         System.out.println("RequestFilter");
-
     }
 }

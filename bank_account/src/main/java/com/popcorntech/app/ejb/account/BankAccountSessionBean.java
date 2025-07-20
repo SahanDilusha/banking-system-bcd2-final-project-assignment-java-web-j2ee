@@ -3,6 +3,9 @@ package com.popcorntech.app.ejb.account;
 import com.popcorntech.app.core.entity.BankAccount;
 import com.popcorntech.app.core.entity.User;
 import com.popcorntech.app.core.service.BankAccountService;
+import com.popcorntech.app.core.service.InterestTimerService;
+import com.popcorntech.app.core.util.TimerTask;
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -16,6 +19,9 @@ public class BankAccountSessionBean implements BankAccountService {
 
     @PersistenceContext
     private EntityManager em;
+
+    @EJB
+    private InterestTimerService interestTimerService;
 
     @Override
     public boolean checkBalance(Long accountNo, Double amount) {
@@ -75,6 +81,9 @@ public class BankAccountSessionBean implements BankAccountService {
     public Optional<BankAccount> createAccount(BankAccount account) {
         try {
             em.persist(account);
+            em.flush();
+            interestTimerService.doTask(new TimerTask(account.getAccountNumber(), "createAccount"));
+
             return Optional.of(account);
         } catch (Exception e) {
             e.printStackTrace();

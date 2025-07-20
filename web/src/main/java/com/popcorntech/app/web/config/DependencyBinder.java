@@ -7,6 +7,5 @@ public class DependencyBinder extends AbstractBinder {
     @Override
     protected void configure() {
         System.out.println("DependencyBinder......");
-
     }
 }

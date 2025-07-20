@@ -93,8 +93,8 @@ public class TransferSessionBean implements TransferService {
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw new InvalidTransferException("Invalid transfer request");
         }
 
-        return Optional.empty();
     }
 }

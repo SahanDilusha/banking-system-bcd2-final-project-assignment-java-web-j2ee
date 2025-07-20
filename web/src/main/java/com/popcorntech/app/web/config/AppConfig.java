@@ -14,7 +14,6 @@ public class AppConfig extends ResourceConfig {
 
         property(JspMvcFeature.TEMPLATE_BASE_PATH, "/WEB-INF/views/");
 
-
     }
 
 }
